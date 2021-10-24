@@ -1,1 +1,0 @@
-/usr/bin/c++   -g -Wall -Wextra -O3   CMakeFiles/Cache.dir/src/Cache.cpp.o  -o Cache 

@@ -1,3 +1,0 @@
-/home/roman_lem/Documents/CppCourse/Cache/CMakeFiles/rebuild_cache.dir
-/home/roman_lem/Documents/CppCourse/Cache/CMakeFiles/edit_cache.dir
-/home/roman_lem/Documents/CppCourse/Cache/CMakeFiles/Cache.dir
