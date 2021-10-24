@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/roman_lem/Documents/CppCourse/Cache/src/Cache.cpp
+Cache.hpp
+/home/roman_lem/Documents/CppCourse/Cache/src/Cache.hpp
+
+/home/roman_lem/Documents/CppCourse/Cache/src/Cache.hpp
+iostream
+-
+cstdio
+-
+unordered_map
+-
+list
+-
+cmath
+-
+gtest/gtest.h
+-
+
