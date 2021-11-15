@@ -9,7 +9,7 @@ $ make
 ```
 To run program write
 ```console
-$./Cache
+$ ./Cache
 ```
 
 If you need to build perfect cache algorithm, delete Makefile, and then write
@@ -19,5 +19,5 @@ $ make
 ```
 To run program write
 ```console
-$./PerfCache
+$ ./PerfCache
 ```

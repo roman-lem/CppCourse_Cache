@@ -15,7 +15,7 @@ int main(){
 	for(int i = 0; i < numOfElements; i++){
 
 		std::cin >> page;
-		result = Cache.add(page);
+		result = Cache.add(&page);
 		if(result == 1){
 			numOfHits++;
 		}

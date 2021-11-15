@@ -58,14 +58,14 @@ public:
 	
 	~Cache() {}
 
-	int RmPage(Queue<Node<cache_T>> *queue, Map_Iter mpit);
-	int MovePage(Queue<Node<cache_T>> *q_src, Queue<Node<cache_T>> *q_dst, List_Iter lstit);
+	int RmPage(Queue<Node<cache_T>> &queue, Map_Iter mpit);
+	int MovePage(Queue<Node<cache_T>> &q_src, Queue<Node<cache_T>> &q_dst, List_Iter lstit);
 
 	Map_Iter CacheHit(cache_T page) {
 		return Map.find(page);
 	}
 
-	int add(cache_T page);
+	int add(cache_T *page);
 
 };
 
@@ -103,26 +103,26 @@ int Queue<node_T>::MoveUpfront(ListIt node){
 //====/ Cache functions /====
 
 template <typename cache_T>
-int Cache<cache_T>::RmPage(Queue<Node<cache_T>> *queue, Map_Iter mpit){
+int Cache<cache_T>::RmPage(Queue<Node<cache_T>> &queue, Map_Iter mpit){
 
-	queue->list.pop_back();
-	queue->size--;
+	queue.list.pop_back();
+	queue.size--;
 	Map.erase(mpit);
 	return 0;
 }
 
 template <typename cache_T>
-int Cache<cache_T>::MovePage(Queue<Node<cache_T>> *q_src, Queue<Node<cache_T>> *q_dst, List_Iter lstit){
+int Cache<cache_T>::MovePage(Queue<Node<cache_T>> &q_src, Queue<Node<cache_T>> &q_dst, List_Iter lstit){
 
-	q_src->size--;
-	q_dst->size++;
-	q_dst->list.splice(q_dst->list.begin(), q_src->list, lstit);
+	q_src.size--;
+	q_dst.size++;
+	q_dst.list.splice(q_dst.list.begin(), q_src.list, lstit);
 	return 0;
 }
 
 template <typename cache_T>
-int Cache<cache_T>::add(cache_T page){
-	auto hit = CacheHit(page);
+int Cache<cache_T>::add(cache_T *page){
+	auto hit = CacheHit(*page);
 
 	if(hit == Map.end()){//not found
 
@@ -130,21 +130,20 @@ int Cache<cache_T>::add(cache_T page){
 
 			if(Out.IsQueueFull()){
 				
-				RmPage(&Out, Map.find(Out.list.back().key));
+				RmPage(Out, Map.find(Out.list.back().key));
 			}
 
 			In.list.back().affiliation = 2;
 
-			List_Iter lstit = In.list.begin();
-			std::advance(lstit, In.list.size() - 1);
-			MovePage(&In, &Out, lstit);
+			List_Iter lstit = --In.list.end();
+			MovePage(In, Out, lstit);
 		}
 
-		Node<cache_T> tmp_node = {page, 1};
+		Node<cache_T> tmp_node = {*page, 1};
 		In.list.push_front(tmp_node);
 		In.size++;
 
-		Map.insert({page, In.list.begin()});
+		Map.insert({*page, In.list.begin()});
 		return 0;
 	}
 
@@ -161,10 +160,10 @@ int Cache<cache_T>::add(cache_T page){
 
 		case 2:
 			if (Hot.IsQueueFull()) {
-				RmPage(&Hot, Map.find(Hot.list.back().key));
+				RmPage(Hot, Map.find(Hot.list.back().key));
 			}
 			hit->second->affiliation = 0;
-			MovePage(&Out, &Hot, hit->second);
+			MovePage(Out, Hot, hit->second);
 			return 1;
 			break;
 		default:
