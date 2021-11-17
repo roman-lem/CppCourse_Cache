@@ -23,6 +23,7 @@ int main(){
 			printf("ERROR!\n");
 			return -1;
 		}
+		//Cache.Dump();
 	}
 
 	std::cout  << numOfHits << std::endl;
